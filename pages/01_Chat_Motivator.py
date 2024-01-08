@@ -16,14 +16,17 @@ from langchain_core.runnables import RunnableLambda, RunnablePassthrough
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import FAISS
 
+
 def save_message(message, role):
     st.session_state["messages"].append({"message": message, "role": role})
+
 
 def send_message(message, role, save=True):
     with st.chat_message(role):
         st.write(message)
     if save:
         save_message(message, role)
+
 
 st.title("Chat Motivator")
 
@@ -41,7 +44,7 @@ for message in st.session_state["messages"]:
 # retriever = vectorstore.as_retriever()
 
 prompt = ChatPromptTemplate.from_template(
-# 너는 동기부여 상담사야. 너는 아래의 context에 기반하여 상대에게 비판적이며 자극이 되는 대답을 해줘야 해, 따뜻한 위로말보단 냉정하고 비판적인 말을 해야 해: {context}
+    # 너는 동기부여 상담사야. 너는 아래의 context에 기반하여 상대에게 비판적이며 자극이 되는 대답을 해줘야 해, 따뜻한 위로말보단 냉정하고 비판적인 말을 해야 해: {context}
     """
 너는 동기부여 상담사야. 너의 목표는 상대의 성공을 방해하는 요소를 발견하고 지적하는 것이며, 너는 상대에게 비판적이며 자극이 되는 대답을 해줘야 해, 따뜻한 위로말보단 냉정하고 비판적인 말을 해야 해.
 특별히 할 말이 없을땐, 상대의 오늘 일과를 먼저 물어봐.
